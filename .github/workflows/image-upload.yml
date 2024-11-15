@@ -33,10 +33,10 @@ jobs:
           git config user.email "0xcalibursigma@protonmail.com"
           git checkout -b version-bump
           git add -A
-          git commit -m "Update exchange-main-worker tag to $(echo $GITHUB_SHA | head -c7)"
+          git commit -m "Update exchange-main-worker tag to $SHORT_SHA"
           git push origin -f version-bump
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Check for existing PR from version-bump to main
         id: check-pr
@@ -44,11 +44,11 @@ jobs:
           pr_info=$(gh pr list --state open --base main --head version-bump  --json id -q '.[]')
           echo "::set-output name=id::$(echo $pr_info | jq -r '.id')"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Create PR if none exists
         if: ${{ steps.check-pr.outputs.id == '' }}
         run: |
           gh pr create --base main --head version-bump --title "Version Bump" --body "Automated version bump PR"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
