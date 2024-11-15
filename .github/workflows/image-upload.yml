@@ -16,7 +16,7 @@ jobs:
       - name: Checkout k8s-apps repo
         uses: actions/checkout@v2
         with:
-          repository: CamelotLabs/k8s-apps
+          repository: 0xCaliburSigma/test-k8
           path: k8s-apps
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
