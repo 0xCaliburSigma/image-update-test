@@ -41,6 +41,7 @@ jobs:
       - name: Check for existing PR from version-bump to main
         id: check-pr
         run: |
+          cd k8s-apps
           pr_info=$(gh pr list --state open --base main --head version-bump  --json id -q '.[]')
           echo "::set-output name=id::$(echo $pr_info | jq -r '.id')"
         env:
@@ -49,6 +50,7 @@ jobs:
       - name: Create PR if none exists
         if: ${{ steps.check-pr.outputs.id == '' }}
         run: |
+          cd k8s-apps
           gh pr create --base main --head version-bump --title "Version Bump" --body "Automated version bump PR"
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
