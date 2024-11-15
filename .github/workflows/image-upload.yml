@@ -18,6 +18,8 @@ jobs:
         with:
           repository: CamelotLabs/k8s-apps
           path: k8s-apps
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Update kustomization.yml
         run: |
