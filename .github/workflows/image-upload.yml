@@ -34,7 +34,7 @@ jobs:
           git checkout -b version-bump
           git add -A
           git commit -m "Update exchange-main-worker tag to $SHORT_SHA"
-          echo ${{ secrets.GH_TOKEN }}
+          git remote -v
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/0xCaliburSigma/test-k8.git -f version-bump
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
