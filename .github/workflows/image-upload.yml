@@ -9,10 +9,11 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    env:
-      SHORT_SHA: $(echo $GITHUB_SHA | head -c7)
-
     steps:
+      - name: Set SHORT_SHA
+        id: set_short_sha
+        run: echo "SHORT_SHA=$(echo $GITHUB_SHA | head -c7)" >> $GITHUB_ENV
+
       - name: Checkout k8s-apps repo
         uses: actions/checkout@v2
         with:
