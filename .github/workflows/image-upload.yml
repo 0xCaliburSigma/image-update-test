@@ -23,7 +23,7 @@ jobs:
 
       - name: Update kustomization.yml
         run: |
-          cd k8s-apps/apps.camelot/prod/images/
+          cd k8s-apps
           awk -v newTag="$SHORT_SHA" '/- name: exchange-main-worker/{found=1} found && /newTag:/{sub(/newTag: .*/, "newTag: " newTag); found=0} 1' kustomization.yml > temp.yml && mv temp.yml kustomization.yml
 
       - name: Commit and push changes
